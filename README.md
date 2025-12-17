@@ -1,6 +1,6 @@
-# Expense Tracker
+# Expense Tracker Application
 
-A web application to help you track your income and expenses, visualize your financial habits, and manage your budget effectively.
+This is a full-stack Expense Tracker application designed to help users manage their income and expenses efficiently. It provides a user-friendly interface to add, view, and categorize transactions, offering insights into financial habits through interactive charts and overviews.
 
 ## Features
 
@@ -10,23 +10,30 @@ A web application to help you track your income and expenses, visualize your fin
 *   **Data Visualization:** Interactive charts (bar, line, pie) to visualize your income and expenses over time.
 *   **User Authentication:** Secure login and registration system.
 *   **Responsive Design:** Access and manage your finances on any device.
+*   **Profile Management:** Users can manage their profile information, including profile photos.
+
 
 ## Tech Stack
 
-*   **Frontend:**
-    *   React
-    *   Vite
-    *   Tailwind CSS
-    *   Recharts for charts
-    *   React Router for routing
-*   **Backend (Assumed):**
-    *   Node.js with Express.js (or any other backend framework)
-    *   A database (e.g., MongoDB, PostgreSQL)
-*   **Other Libraries:**
-    *   Axios for API requests
-    *   Moment.js for date formatting
-    *   React Icons for icons
-    *   Emoji Picker React for emoji selection
+The application is built using a modern MERN (MongoDB, Express.js, React, Node.js) stack, ensuring a robust, scalable, and efficient performance.
+
+### Frontend
+
+*   **React.js:** A JavaScript library for building user interfaces, providing a component-based architecture for dynamic and interactive UIs.
+*   **Vite:** A fast build tool that provides an extremely fast development experience for modern web projects.
+*   **Tailwind CSS:** For styling the application.
+*   **Recharts for charts**
+*   **React Router for routing**
+*   **Axios:** Promise-based HTTP client for making API requests.
+
+### Backend
+
+*   **Node.js:** A JavaScript runtime built on Chrome's V8 JavaScript engine, used for building scalable server-side applications.
+*   **Express.js:** A fast, unopinionated, minimalist web framework for Node.js, used for building RESTful APIs.
+*   **MongoDB:** A NoSQL document database used for storing application data.
+*   **Mongoose:** An elegant MongoDB object modeling tool for Node.js, simplifying database interactions.
+*   **JSON Web Tokens (JWT):** For secure user authentication and authorization.
+*   **Multer:** A middleware for handling `multipart/form-data`, primarily used for uploading files (e.g., profile photos).
 
 ## Getting Started
 
@@ -94,6 +101,18 @@ s    npm run lint
 ├── README.md            # This file
 └── vite.config.js       # Vite configuration
 ```
+
+## Usage
+
+*   Register a new user or log in with existing credentials.
+*   Navigate through the dashboard to view financial summaries.
+*   Add new income and expense transactions.
+*   Categorize transactions for better financial tracking.
+*   Update your profile information.
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request or open an issue if you find any bugs or have suggestions for improvements.
 
 ## License
 
