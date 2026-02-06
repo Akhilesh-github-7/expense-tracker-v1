@@ -137,7 +137,8 @@ const Home = () => {
               <h3 className='text-xl md:text-2xl font-bold text-slate-900'>Financial Analytics</h3>
             </div>
             
-            <div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
+            <div className='grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8'>
+              {/* Column 1: General Overview */}
               <div className='space-y-8'>
                 <FinanceOverview
                   totalBalance={dashboardData?.totalBalance || 0}
@@ -150,25 +151,29 @@ const Home = () => {
                 />
               </div>
 
+              {/* Column 2: Expense Analysis */}
               <div className='space-y-8'>
                 <Last30DaysExpenses
                   data={dashboardData?.last30DaysExpenses?.transactions || []}
                 />
-                <RecentIncomeWithChart
-                  data={dashboardData?.last60DaysIncome?.transactions || []}
-                  totalIncome={dashboardData?.totalIncome || 0}
-                />
-              </div>
-
-              <div className='lg:col-span-2 grid grid-cols-1 lg:grid-cols-2 gap-8'>
                 <ExpenseTransactions
                   transactions={dashboardData?.last30DaysExpenses?.transactions || []}
                   onSeeMore={()=> navigate("/expense")}
                 />
-                <RecentIncome
-                  transactions={dashboardData?.last60DaysIncome?.transactions || []}
-                  onSeeMore={()=> navigate("/income")}
-                />
+              </div>
+
+              {/* Column 3: Income Analysis */}
+              <div className='space-y-8 lg:col-span-2 xl:col-span-1'>
+                <div className='grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-1 gap-8'>
+                  <RecentIncomeWithChart
+                    data={dashboardData?.last60DaysIncome?.transactions || []}
+                    totalIncome={dashboardData?.totalIncome || 0}
+                  />
+                  <RecentIncome
+                    transactions={dashboardData?.last60DaysIncome?.transactions || []}
+                    onSeeMore={()=> navigate("/income")}
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -231,9 +236,9 @@ const DashboardSkeleton = () => {
          ))}
       </div>
 
-      <div className='grid grid-cols-1 md:grid-cols-2 gap-6 mt-6'>
+      <div className='grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 mt-12'>
          {[1,2,3,4,5,6].map(i => (
-             <div key={i} className='bg-white p-6 rounded-2xl shadow-sm border border-slate-100/50 h-64 animate-pulse'></div>
+             <div key={i} className='bg-white p-6 rounded-3xl shadow-sm border border-slate-100/50 h-80 animate-pulse'></div>
          ))}
       </div>
     </div>

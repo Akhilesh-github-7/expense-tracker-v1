@@ -10,12 +10,12 @@ const DashboardLayout = ({ children , activeMenu }) => {
         <Navbar activeMenu={activeMenu}/>
 
         {user && (
-            <div className='flex max-w-[1600px] mx-auto'>
-                <div className='hidden lg:block w-64 flex-shrink-0'>
+            <div className='flex max-w-[1600px] mx-auto lg:gap-4 xl:gap-8'>
+                <div className='hidden lg:block w-64 xl:w-72 flex-shrink-0'>
                     <SideMenu activeMenu={activeMenu}/>
                 </div>
                 
-                <main className='flex-1 w-full min-w-0 py-4 px-4 md:px-6 lg:px-8 overflow-hidden'>
+                <main className='flex-1 w-full min-w-0 py-6 px-4 md:px-6 lg:px-8 xl:px-10 overflow-hidden'>
                     {children}
                 </main>
             </div>
