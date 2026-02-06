@@ -42,5 +42,3 @@ const RecentTransactions = ({ transactions, onSeeMore}) => {
 }
 
 export default RecentTransactions
-
-export default RecentTransactions

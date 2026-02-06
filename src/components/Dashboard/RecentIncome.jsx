@@ -41,5 +41,3 @@ const RecentIncome = ({transactions,onSeeMore}) => {
 }
 
 export default RecentIncome
-
-export default RecentIncome

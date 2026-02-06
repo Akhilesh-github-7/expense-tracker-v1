@@ -173,8 +173,6 @@ const Home = () => {
   )
 }
 
-export default Home
-
 const NoDataView = () => {
   const navigate = useNavigate();
   return (
@@ -236,32 +234,3 @@ const DashboardSkeleton = () => {
 }
 
 export default Home
-
-const DashboardSkeleton = () => {
-  return (
-    <div className='my-5 mx-auto'>
-      <div className='mb-6'>
-         <div className='h-8 w-48 bg-slate-200 rounded animate-pulse mb-2'></div>
-         <div className='h-4 w-64 bg-slate-100 rounded animate-pulse'></div>
-      </div>
-
-      <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
-         {[1,2,3].map(i => (
-            <div key={i} className='bg-white p-6 rounded-2xl shadow-sm border border-slate-100/50 flex items-center gap-6'>
-               <div className='w-14 h-14 bg-slate-200 rounded-full animate-pulse'></div>
-               <div>
-                 <div className='h-4 w-24 bg-slate-200 rounded animate-pulse mb-2'></div>
-                 <div className='h-8 w-32 bg-slate-200 rounded animate-pulse'></div>
-               </div>
-            </div>
-         ))}
-      </div>
-
-      <div className='grid grid-cols-1 md:grid-cols-2 gap-6 mt-6'>
-         {[1,2,3,4,5,6].map(i => (
-             <div key={i} className='bg-white p-6 rounded-2xl shadow-sm border border-slate-100/50 h-64 animate-pulse'></div>
-         ))}
-      </div>
-    </div>
-  )
-}
