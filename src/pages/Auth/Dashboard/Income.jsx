@@ -139,15 +139,17 @@ const Income = () => {
 
   return (
     <DashboardLayout activeMenu="Income">
-      <div className='my-5 mx-auto'>
-        <div className='grid grid-cols-1 gap-6'>
-          <div className=''>
-            <IncomeOverview
+      <div className='max-w-7xl mx-auto'>
+        <div className='mb-8 mt-2'>
+          <h2 className='text-2xl md:text-3xl font-bold text-slate-900'>Income Analytics</h2>
+          <p className='text-sm md:text-base text-slate-500 mt-1'>Manage and track your revenue streams.</p>
+        </div>
+
+        <div className='grid grid-cols-1 gap-8'>
+          <IncomeOverview
             transactions={incomeData}
             onAddIncome={() => setOpenAddIncomeModal(true)}
-            />
-
-          </div>
+          />
 
           <IncomeList
            transactions={incomeData}
@@ -156,30 +158,28 @@ const Income = () => {
            }}
            onDownload={handleDownloadIncomeDetails}
            />
-
         </div>
 
         <Modal 
-        isOpen={openAddIncomeModal}
-        onClose={()=> setOpenAddIncomeModal(false)}
-        title="Add Income"
+          isOpen={openAddIncomeModal}
+          onClose={()=> setOpenAddIncomeModal(false)}
+          title="Add Income"
         >
          <AddIncomeForm onAddIncome={handleAddIncome}/>
         </Modal>
 
         <Modal 
-        isOpen={openDeleteAlert.show}
-        onClose={()=> setOpenDeleteAlert({show: false,data: null})}
-        title="Delete Income">
-          <DeleteAlert
-          content="Are you sure you want to delete this income detail?"
-          onDelete={()=> deleteIncome(openDeleteAlert.data)}
+          isOpen={openDeleteAlert.show}
           onClose={()=> setOpenDeleteAlert({show: false,data: null})}
+          title="Delete Income"
+        >
+          <DeleteAlert
+            content="Are you sure you want to delete this income record? This action cannot be undone."
+            onDelete={()=> deleteIncome(openDeleteAlert.data)}
+            onClose={()=> setOpenDeleteAlert({show: false,data: null})}
           />
         </Modal>
-
       </div>
-
     </DashboardLayout>
   )
 }
@@ -188,10 +188,14 @@ export default Income
 
 const IncomeSkeleton = () => {
   return (
-    <div className='my-5 mx-auto'>
-      <div className='grid grid-cols-1 gap-6'>
-         <div className='bg-white p-6 rounded-2xl shadow-sm border border-slate-100/50 h-80 animate-pulse'></div>
-         <div className='bg-white p-6 rounded-2xl shadow-sm border border-slate-100/50 h-96 animate-pulse'></div>
+    <div className='max-w-7xl mx-auto'>
+      <div className='mb-8 mt-2'>
+         <div className='h-10 w-64 bg-slate-200 rounded-2xl animate-pulse mb-2'></div>
+         <div className='h-4 w-48 bg-slate-100 rounded-lg animate-pulse'></div>
+      </div>
+      <div className='grid grid-cols-1 gap-8'>
+         <div className='bg-white p-6 rounded-3xl shadow-sm border border-slate-100/50 h-[400px] animate-pulse'></div>
+         <div className='bg-white p-6 rounded-3xl shadow-sm border border-slate-100/50 h-[500px] animate-pulse'></div>
       </div>
     </div>
   )

@@ -61,114 +61,121 @@ const Home = () => {
 
   return (
     <DashboardLayout activeMenu="Dashboard">
-      <div className='my-5 mx-auto max-w-7xl px-4'>
-        <div className='flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8'>
+      <div className='max-w-7xl mx-auto'>
+        <div className='flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-8 mt-2'>
           <div>
-            <h2 className='text-3xl font-bold text-slate-900'>Welcome, {user?.fullName?.split(" ")[0] || "User"}! 👋</h2>
-            <p className='text-slate-500 mt-1'>Here's what's happening with your money today.</p>
+            <h2 className='text-2xl md:text-3xl font-bold text-slate-900'>Welcome, {user?.fullName?.split(" ")[0] || "User"}! 👋</h2>
+            <p className='text-sm md:text-base text-slate-500 mt-1'>Here's what's happening with your money today.</p>
           </div>
           
           <button 
             onClick={fetchDashboardData}
-            className='flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-xl text-slate-600 hover:text-primary hover:border-primary/30 transition-all shadow-sm'
+            className='flex items-center justify-center gap-2 px-5 py-2.5 bg-white border border-slate-200 rounded-2xl text-slate-600 hover:text-primary hover:border-primary/30 transition-all shadow-sm active:scale-95'
           >
             <LuRefreshCcw size={18} className={`${loading ? 'animate-spin' : ''}`} />
-            <span className='text-sm font-semibold'>Refresh Data</span>
+            <span className='text-sm font-bold'>Refresh</span>
           </button>
         </div>
 
         {/* Quick Actions */}
-        <div className='grid grid-cols-2 md:grid-cols-4 gap-4 mb-8'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10'>
           <button 
             onClick={() => navigate("/income")}
-            className='flex items-center gap-3 p-4 bg-primary/5 border border-primary/10 rounded-2xl hover:bg-primary/10 transition-all group text-left'
+            className='flex items-center gap-4 p-5 bg-white border border-slate-100 rounded-3xl hover:border-primary/20 hover:bg-primary/5 transition-all group text-left shadow-sm'
           >
-            <div className='w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white shadow-lg shadow-primary/20'>
-              <LuPlus size={20} />
+            <div className='w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all'>
+              <LuPlus size={24} />
             </div>
             <div>
-              <p className='text-xs font-bold text-primary uppercase tracking-wider'>Add</p>
-              <p className='text-sm font-bold text-slate-800'>Income</p>
+              <p className='text-[10px] font-black text-primary uppercase tracking-widest mb-0.5'>Add New</p>
+              <p className='text-base font-bold text-slate-800'>Income</p>
             </div>
           </button>
 
           <button 
             onClick={() => navigate("/expense")}
-            className='flex items-center gap-3 p-4 bg-red-50 border border-red-100 rounded-2xl hover:bg-red-100/50 transition-all group text-left'
+            className='flex items-center gap-4 p-5 bg-white border border-slate-100 rounded-3xl hover:border-red-500/20 hover:bg-red-50 transition-all group text-left shadow-sm'
           >
-            <div className='w-10 h-10 rounded-xl bg-red-500 flex items-center justify-center text-white shadow-lg shadow-red-200'>
-              <LuPlus size={20} />
+            <div className='w-12 h-12 rounded-2xl bg-red-50 flex items-center justify-center text-red-500 group-hover:bg-red-500 group-hover:text-white transition-all'>
+              <LuPlus size={24} />
             </div>
             <div>
-              <p className='text-xs font-bold text-red-500 uppercase tracking-wider'>Add</p>
-              <p className='text-sm font-bold text-slate-800'>Expense</p>
+              <p className='text-[10px] font-black text-red-500 uppercase tracking-widest mb-0.5'>Add New</p>
+              <p className='text-base font-bold text-slate-800'>Expense</p>
             </div>
           </button>
         </div>
 
-        <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
+        {/* Key Stats */}
+        <div className='grid grid-cols-1 md:grid-cols-3 gap-6 mb-10'>
           <InfoCard
-          icon={<IoMdCard/>}
-          label="Total Balance"
-          value={addThousandsSeparator(dashboardData?.totalBalance || 0)}
-          color="bg-primary"/>
+            icon={<IoMdCard/>}
+            label="Total Balance"
+            value={addThousandsSeparator(dashboardData?.totalBalance || 0)}
+            color="bg-primary"
+          />
 
-         <InfoCard
-          icon={<LuWalletMinimal/>}
-          label="Total Income"
-          value={addThousandsSeparator(dashboardData?.totalIncome || 0)}
-          color="bg-orange-500"/>
+          <InfoCard
+            icon={<LuWalletMinimal/>}
+            label="Total Income"
+            value={addThousandsSeparator(dashboardData?.totalIncome || 0)}
+            color="bg-orange-500"
+          />
 
-         <InfoCard
-          icon={<LuHandCoins/>}
-          label="Total Expense"
-          value={addThousandsSeparator(dashboardData?.totalExpense || 0)}
-          color="bg-red-500"/>
+          <InfoCard
+            icon={<LuHandCoins/>}
+            label="Total Expense"
+            value={addThousandsSeparator(dashboardData?.totalExpense || 0)}
+            color="bg-red-500"
+          />
         </div>
 
         {hasData ? (
-          <div className='mt-10'>
-            <h3 className='text-xl font-bold text-slate-800 mb-6 flex items-center gap-2'>
-              <div className='w-2 h-6 bg-primary rounded-full'></div>
-              Financial Analytics
-            </h3>
+          <div className='mt-12'>
+            <div className='flex items-center gap-3 mb-8'>
+              <div className='w-1.5 h-8 bg-primary rounded-full'></div>
+              <h3 className='text-xl md:text-2xl font-bold text-slate-900'>Financial Analytics</h3>
+            </div>
             
-            <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-              <FinanceOverview
-                totalBalance={dashboardData?.totalBalance || 0}
-                totalIncome={dashboardData?.totalIncome || 0}
-                totalExpense={dashboardData?.totalExpense || 0}
-              />
+            <div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
+              <div className='space-y-8'>
+                <FinanceOverview
+                  totalBalance={dashboardData?.totalBalance || 0}
+                  totalIncome={dashboardData?.totalIncome || 0}
+                  totalExpense={dashboardData?.totalExpense || 0}
+                />
+                <RecentTransactions
+                  transactions={dashboardData?.recentTransactions}
+                  onSeeMore={()=>navigate("/expense")}
+                />
+              </div>
 
-              <Last30DaysExpenses
-                data={dashboardData?.last30DaysExpenses?.transactions || []}
-              />
+              <div className='space-y-8'>
+                <Last30DaysExpenses
+                  data={dashboardData?.last30DaysExpenses?.transactions || []}
+                />
+                <RecentIncomeWithChart
+                  data={dashboardData?.last60DaysIncome?.transactions || []}
+                  totalIncome={dashboardData?.totalIncome || 0}
+                />
+              </div>
 
-                          <RecentIncomeWithChart
-                            data={dashboardData?.last60DaysIncome?.transactions || []}
-                            totalIncome={dashboardData?.totalIncome || 0}
-                          />
-              <RecentTransactions
-                transactions={dashboardData?.recentTransactions}
-                onSeeMore={()=>navigate("/expense")}
-              />
-
-              <ExpenseTransactions
-                transactions={dashboardData?.last30DaysExpenses?.transactions || []}
-                onSeeMore={()=> navigate("/expense")}
-              />
-
-              <RecentIncome
-                transactions={dashboardData?.last60DaysIncome?.transactions || []}
-                onSeeMore={()=> navigate("/income")}
-              />
+              <div className='lg:col-span-2 grid grid-cols-1 lg:grid-cols-2 gap-8'>
+                <ExpenseTransactions
+                  transactions={dashboardData?.last30DaysExpenses?.transactions || []}
+                  onSeeMore={()=> navigate("/expense")}
+                />
+                <RecentIncome
+                  transactions={dashboardData?.last60DaysIncome?.transactions || []}
+                  onSeeMore={()=> navigate("/income")}
+                />
+              </div>
             </div>
           </div>
         ) : (
           <NoDataView />
         )}
       </div>
-
     </DashboardLayout>
   )
 }

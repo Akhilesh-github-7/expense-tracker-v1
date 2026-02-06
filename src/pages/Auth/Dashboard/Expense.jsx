@@ -145,13 +145,17 @@ const Expense = () => {
 
   return (
     <DashboardLayout activeMenu="Expense">
-      <div className='my-5 mx-auto'>
-        <div className='grid grid-cols-1 gap-6'>
-          <div className=''>
-            <ExpenseOverview
+      <div className='max-w-7xl mx-auto'>
+        <div className='mb-8 mt-2'>
+          <h2 className='text-2xl md:text-3xl font-bold text-slate-900'>Expense Analytics</h2>
+          <p className='text-sm md:text-base text-slate-500 mt-1'>Monitor and optimize your spending habits.</p>
+        </div>
+
+        <div className='grid grid-cols-1 gap-8'>
+          <ExpenseOverview
             transactions={expenseData}
-            onExpenseIncome={()=>setOpenAddExpenseModal(true)}/>
-          </div>
+            onExpenseIncome={()=>setOpenAddExpenseModal(true)}
+          />
 
           <ExpenseList
             transactions={expenseData}
@@ -159,29 +163,28 @@ const Expense = () => {
               setOpenDeleteAlert({ show: true, data: id });
             }}
             onDownload={handleDownloadExpenseDetails}
-            />
+          />
         </div>
 
         <Modal
-        isOpen={openAddExpenseModal}
-        onClose={()=> setOpenAddExpenseModal(false)}
-        title="Add Expense">
-
+          isOpen={openAddExpenseModal}
+          onClose={()=> setOpenAddExpenseModal(false)}
+          title="Add Expense"
+        >
           <AddExpenseForm onAddExpense={handleAddExpense}/>
-
         </Modal>
 
         <Modal 
-        isOpen={openDeleteAlert.show}
-        onClose={()=> setOpenDeleteAlert({show: false,data: null})}
-        title="Delete Expense">
-          <DeleteAlert
-          content="Are you sure you want to delete this expense detail?"
-          onDelete={()=> deleteExpense(openDeleteAlert.data)}
+          isOpen={openDeleteAlert.show}
           onClose={()=> setOpenDeleteAlert({show: false,data: null})}
+          title="Delete Expense"
+        >
+          <DeleteAlert
+            content="Are you sure you want to delete this expense record? This action cannot be undone."
+            onDelete={()=> deleteExpense(openDeleteAlert.data)}
+            onClose={()=> setOpenDeleteAlert({show: false,data: null})}
           />
         </Modal>
-
       </div>
     </DashboardLayout>
   )
@@ -191,10 +194,14 @@ export default Expense
 
 const ExpenseSkeleton = () => {
   return (
-    <div className='my-5 mx-auto'>
-      <div className='grid grid-cols-1 gap-6'>
-         <div className='bg-white p-6 rounded-2xl shadow-sm border border-slate-100/50 h-80 animate-pulse'></div>
-         <div className='bg-white p-6 rounded-2xl shadow-sm border border-slate-100/50 h-96 animate-pulse'></div>
+    <div className='max-w-7xl mx-auto'>
+      <div className='mb-8 mt-2'>
+         <div className='h-10 w-64 bg-slate-200 rounded-2xl animate-pulse mb-2'></div>
+         <div className='h-4 w-48 bg-slate-100 rounded-lg animate-pulse'></div>
+      </div>
+      <div className='grid grid-cols-1 gap-8'>
+         <div className='bg-white p-6 rounded-3xl shadow-sm border border-slate-100/50 h-[400px] animate-pulse'></div>
+         <div className='bg-white p-6 rounded-3xl shadow-sm border border-slate-100/50 h-[500px] animate-pulse'></div>
       </div>
     </div>
   )
