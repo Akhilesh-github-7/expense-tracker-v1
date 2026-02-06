@@ -36,13 +36,16 @@ const ProfilePhotoSelector = ({image, setImage}) => {
         className='hidden'
         />
         {!image ? (
-            <div className='w-20 h-20 flex items-center justify-center bg-purple-100 rounded-full relative'>
-                <LuUser className='text-4xl text-primary'/>
+            <div className='w-24 h-24 flex items-center justify-center bg-slate-100 border-2 border-dashed border-slate-300 rounded-full relative hover:border-primary/50 transition-colors cursor-pointer' onClick={onChooseFile}>
+                <LuUser className='text-4xl text-slate-400'/>
                 <button type='button'
-                className='w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full absolute -bottom-1 -right-1'
-                onClick={onChooseFile}
+                className='w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full absolute -bottom-1 -right-1 shadow-md shadow-primary/30'
+                onClick={(e) => {
+                    e.stopPropagation();
+                    onChooseFile();
+                }}
                 >
-                <LuUpload/>
+                <LuUpload size={16}/>
 
                 </button>
 
@@ -51,11 +54,11 @@ const ProfilePhotoSelector = ({image, setImage}) => {
             <div className='relative'>
                 <img src={previewUrl}
                 alt='profile Photo'
-                className='w-20 h-20 rounded-full object-cover'/>
+                className='w-24 h-24 rounded-full object-cover border-2 border-white shadow-lg'/>
                 <button type='button'
-                className='w-8 h-8 flex items-center justify-center bg-red-500 text-white rounded-full absolute -bottom-1 -right-1'
+                className='w-8 h-8 flex items-center justify-center bg-red-500 text-white rounded-full absolute -bottom-1 -right-1 shadow-md hover:bg-red-600 transition-colors'
                 onClick={handleRemoveImage}>
-                    <LuTrash/>
+                    <LuTrash size={16}/>
 
                 </button>
             </div>

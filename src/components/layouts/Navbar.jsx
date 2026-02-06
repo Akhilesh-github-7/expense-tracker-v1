@@ -3,6 +3,7 @@ import { HiOutlineMenu, HiOutlineX } from 'react-icons/hi'
 import SideMenu from './SideMenu'
 import { UserContext } from '../../context/UserContext'
 import { LuTrendingUpDown } from 'react-icons/lu'
+import CharAvatar from '../Cards/CharAvatar'
 
 const Navbar = ({activeMenu}) => {
     const [openSideMenu, setOpenSideMenu] = useState(false)
@@ -38,13 +39,14 @@ const Navbar = ({activeMenu}) => {
                 <p className='text-sm font-semibold text-slate-800'>{user?.fullName || 'User'}</p>
                 <p className='text-xs text-slate-500'>{user?.email || 'user@example.com'}</p>
             </div>
-            <div className='w-10 h-10 rounded-full bg-slate-100 border border-slate-200 overflow-hidden flex items-center justify-center text-primary font-bold'>
-                 {user?.profileImageUrl ? (
-                    <img src={user.profileImageUrl} alt="Profile" className='w-full h-full object-cover' />
-                 ) : (
-                    user?.fullName ? user.fullName[0] : 'U'
-                 )}
-            </div>
+            
+            <CharAvatar 
+              fullName={user?.fullName} 
+              image={user?.profileImageUrl} 
+              width="w-10" 
+              height="h-10"
+              style="cursor-pointer" 
+            />
         </div>
 
         {openSideMenu && (
