@@ -5,7 +5,7 @@ import Legends from './Legends'
 
 
 const CustomPieChart = ({data, label, totalAmount, colors, showTextAnchor}) => {
-  return <ResponsiveContainer width="100%" height={380} key={data.length}>
+  return <ResponsiveContainer width="100%" height={380}>
     <PieChart>
     <Pie
     data={data}
@@ -13,9 +13,12 @@ const CustomPieChart = ({data, label, totalAmount, colors, showTextAnchor}) => {
     nameKey="name"
     cx="50%"
     cy="50%"
-    outerRadius={130}
-    innerRadius={100}
-    labelLine={false}
+    outerRadius={135}
+    innerRadius={105}
+    paddingAngle={2}
+    cornerRadius={4}
+    stroke="none"
+    dataKey="amount"
     >
         {data.map((entry , index)=>(
             <Cell key={`cell-${index}`} fill={colors[index %  colors.length]}/>
@@ -33,19 +36,24 @@ const CustomPieChart = ({data, label, totalAmount, colors, showTextAnchor}) => {
         y="50%"
         dy={-25}
         textAnchor='middle'
-        fill='#666'
-        fontSize="14px">
+        fill='#94a3b8'
+        fontSize="14px"
+        fontWeight={500}
+        fontFamily='sans-serif'
+        >
         {label}
         </text>
 
         <text
         x="50%"
         y="50%"
-        dy={8}
+        dy={10}
         textAnchor='middle'
-        fill='#333'
-        fontSize="24px"
-        fontWeight="semi-bold">
+        fill='#1e293b'
+        fontSize="28px"
+        fontWeight={700}
+        fontFamily='sans-serif'
+        >
             {totalAmount}   
         </text>
 
