@@ -173,8 +173,9 @@ const Income = () => {
         title="Delete Income">
           <DeleteAlert
           content="Are you sure you want to delete this income detail?"
-          onDelete={()=> deleteIncome(openDeleteAlert.data)}/>
-
+          onDelete={()=> deleteIncome(openDeleteAlert.data)}
+          onClose={()=> setOpenDeleteAlert({show: false,data: null})}
+          />
         </Modal>
 
       </div>

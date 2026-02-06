@@ -177,8 +177,9 @@ const Expense = () => {
         title="Delete Expense">
           <DeleteAlert
           content="Are you sure you want to delete this expense detail?"
-          onDelete={()=> deleteExpense(openDeleteAlert.data)}/>
-
+          onDelete={()=> deleteExpense(openDeleteAlert.data)}
+          onClose={()=> setOpenDeleteAlert({show: false,data: null})}
+          />
         </Modal>
 
       </div>
