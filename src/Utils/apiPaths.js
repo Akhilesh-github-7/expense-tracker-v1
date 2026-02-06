@@ -1,4 +1,4 @@
-export const BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://expense-tracker-server-usbb.onrender.com";
+export const BASE_URL = "https://expense-tracker-server-usbb.onrender.com";
 
 // utils/apiPaths.js
 export const API_PATHS = {
