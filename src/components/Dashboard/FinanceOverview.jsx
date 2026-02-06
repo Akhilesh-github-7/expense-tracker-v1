@@ -12,9 +12,12 @@ const FinanceOverview = ({totalBalance,totalIncome,totalExpense}) => {
 
     
   return (
-    <div className='card'>
-        <div className='flex items-center justify-between'>
-            <h5 className=''>Financial Overview</h5>
+    <div className='bg-white p-6 rounded-2xl shadow-sm border border-slate-100/50'>
+        <div className='flex items-center justify-between mb-2'>
+            <div>
+              <h5 className='text-lg font-bold text-slate-800'>Financial Overview</h5>
+              <p className='text-xs text-slate-400 mt-0.5'>Overall balance distribution</p>
+            </div>
         </div>
        
        <CustomPieChart
@@ -27,5 +30,7 @@ const FinanceOverview = ({totalBalance,totalIncome,totalExpense}) => {
     </div>
   )
 }
+
+export default FinanceOverview
 
 export default FinanceOverview

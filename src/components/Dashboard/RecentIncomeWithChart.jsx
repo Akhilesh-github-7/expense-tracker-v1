@@ -22,9 +22,12 @@ const RecentIncomeWithChart = ({data,totalIncome}) => {
         return () => {}
     },[data]);
   return (
-    <div className='card'>
-        <div className='flex items-center justify-between'>
-            <h5 className='text-lg'>Last 60 Days Income</h5>
+    <div className='bg-white p-6 rounded-2xl shadow-sm border border-slate-100/50'>
+        <div className='flex items-center justify-between mb-2'>
+            <div>
+              <h5 className='text-lg font-bold text-slate-800'>Income Sources</h5>
+              <p className='text-xs text-slate-400 mt-0.5'>Last 60 days distribution</p>
+            </div>
         </div>
     
         <CustomPieChart
@@ -36,5 +39,7 @@ const RecentIncomeWithChart = ({data,totalIncome}) => {
     </div>
   )
 }
+
+export default RecentIncomeWithChart
 
 export default RecentIncomeWithChart

@@ -13,15 +13,19 @@ const [chartData, setChartData] = useState([])
         return () =>{};
     },[data]);
   return (
-    <div className='card col-span-1'>
-        <div className='flex items-center justify-between'>
-            <h5 className='text-lg'>Last 30 Days Expenses</h5>
-
+    <div className='bg-white p-6 rounded-2xl shadow-sm border border-slate-100/50'>
+        <div className='flex items-center justify-between mb-4'>
+            <div>
+              <h5 className='text-lg font-bold text-slate-800'>Expense Trends</h5>
+              <p className='text-xs text-slate-400 mt-0.5'>Last 30 days breakdown</p>
+            </div>
         </div>
 
        <CustomBarChart data={chartData}/>
     </div>
   )
 }
+
+export default Last30DaysExpenses
 
 export default Last30DaysExpenses

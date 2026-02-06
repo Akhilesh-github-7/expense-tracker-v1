@@ -6,7 +6,7 @@ import axiosInstance from '../../../Utils/axiosInstance'
 import { API_PATHS } from '../../../Utils/apiPaths'
 import { IoMdCard } from 'react-icons/io'
 import InfoCard from '../../../components/Cards/InfoCard'
-import { LuHandCoins, LuWalletMinimal } from 'react-icons/lu'
+import { LuHandCoins, LuPlus, LuRefreshCcw, LuWalletMinimal } from 'react-icons/lu'
 import { addThousandsSeparator } from '../../../Utils/helper'
 import RecentTransactions from '../../../components/Dashboard/RecentTransactions'
 import FinanceOverview from '../../../components/Dashboard/FinanceOverview'
@@ -59,10 +59,49 @@ const Home = () => {
 
   return (
     <DashboardLayout activeMenu="Dashboard">
-      <div className='my-5 mx-auto'>
-        <div className='mb-6'>
-          <h2 className='text-2xl font-bold text-slate-800'>Hello, {user?.fullName?.split(" ")[0] || "User"}! 👋</h2>
-          <p className='text-sm text-slate-500'>Here's an overview of your finances today.</p>
+      <div className='my-5 mx-auto max-w-7xl px-4'>
+        <div className='flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8'>
+          <div>
+            <h2 className='text-3xl font-bold text-slate-900'>Welcome, {user?.fullName?.split(" ")[0] || "User"}! 👋</h2>
+            <p className='text-slate-500 mt-1'>Here's what's happening with your money today.</p>
+          </div>
+          
+          <button 
+            onClick={fetchDashboardData}
+            className='flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-xl text-slate-600 hover:text-primary hover:border-primary/30 transition-all shadow-sm'
+          >
+            <LuRefreshCcw size={18} className={`${loading ? 'animate-spin' : ''}`} />
+            <span className='text-sm font-semibold'>Refresh Data</span>
+          </button>
+        </div>
+
+        {/* Quick Actions */}
+        <div className='grid grid-cols-2 md:grid-cols-4 gap-4 mb-8'>
+          <button 
+            onClick={() => navigate("/income")}
+            className='flex items-center gap-3 p-4 bg-primary/5 border border-primary/10 rounded-2xl hover:bg-primary/10 transition-all group'
+          >
+            <div className='w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white shadow-lg shadow-primary/20'>
+              <LuPlus size={20} />
+            </div>
+            <div className='text-left'>
+              <p className='text-xs font-bold text-primary uppercase tracking-wider'>Add</p>
+              <p className='text-sm font-bold text-slate-800'>Income</p>
+            </div>
+          </button>
+
+          <button 
+            onClick={() => navigate("/expense")}
+            className='flex items-center gap-3 p-4 bg-red-50 border border-red-100 rounded-2xl hover:bg-red-100/50 transition-all group'
+          >
+            <div className='w-10 h-10 rounded-xl bg-red-500 flex items-center justify-center text-white shadow-lg shadow-red-200'>
+              <LuPlus size={20} />
+            </div>
+            <div className='text-left'>
+              <p className='text-xs font-bold text-red-500 uppercase tracking-wider'>Add</p>
+              <p className='text-sm font-bold text-slate-800'>Expense</p>
+            </div>
+          </button>
         </div>
 
         <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
@@ -85,38 +124,43 @@ const Home = () => {
           color="bg-red-500"/>
         </div>
 
-        <div className='grid grid-cols-1 md:grid-cols-2 gap-6 mt-6'>
-          <RecentTransactions
-          transactions={dashboardData?.recentTransactions}
-          onSeeMore={()=>navigate("/expense")}
-          />
+        <div className='mt-10'>
+          <h3 className='text-xl font-bold text-slate-800 mb-6 flex items-center gap-2'>
+            <div className='w-2 h-6 bg-primary rounded-full'></div>
+            Financial Analytics
+          </h3>
+          
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+            <FinanceOverview
+              totalBalance={dashboardData?.totalBalance || 0}
+              totalIncome={dashboardData?.totalIncome || 0}
+              totalExpense={dashboardData?.totalExpense || 0}
+            />
 
-          <FinanceOverview
-          totalBalance={dashboardData?.totalBalance || 0}
-          totalIncome={dashboardData?.totalIncome || 0}
-          totalExpense={dashboardData?.totalExpense || 0}
-          />
+            <Last30DaysExpenses
+              data={dashboardData?.last30DaysExpenses?.transactions || []}
+            />
 
-          <ExpenseTransactions
-          transactions={dashboardData?.last30DaysExpenses?.transactions || []}
-          onSeeMore={()=> navigate("/expense")}/>
+            <RecentIncomeWithChart
+              data={dashboardData?.last60DaysIncome?.transactions?.slice(0,4) || []}
+              totalIncome={dashboardData?.totalIncome || 0}
+            />
 
-          <Last30DaysExpenses
-          data={dashboardData?.last30DaysExpenses?.transactions || []}
-          />
+            <RecentTransactions
+              transactions={dashboardData?.recentTransactions}
+              onSeeMore={()=>navigate("/expense")}
+            />
 
-          <RecentIncomeWithChart
-          data={dashboardData?.last60DaysIncome?.transactions?.slice(0,4) || []}
-          totalIncome={dashboardData?.totalIncome || 0}
-          />
+            <ExpenseTransactions
+              transactions={dashboardData?.last30DaysExpenses?.transactions || []}
+              onSeeMore={()=> navigate("/expense")}
+            />
 
-
-          <RecentIncome
-          transactions={dashboardData?.last60DaysIncome?.transactions || []}
-          onSeeMore={()=> navigate("/income")}
-          />
-
-
+            <RecentIncome
+              transactions={dashboardData?.last60DaysIncome?.transactions || []}
+              onSeeMore={()=> navigate("/income")}
+            />
+          </div>
         </div>
       </div>
 
