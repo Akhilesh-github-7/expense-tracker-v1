@@ -135,6 +135,14 @@ const Expense = () => {
     return () => {};
   }, []);
   
+  if (loading) {
+    return (
+      <DashboardLayout activeMenu="Expense">
+         <ExpenseSkeleton />
+      </DashboardLayout>
+    )
+  }
+
   return (
     <DashboardLayout activeMenu="Expense">
       <div className='my-5 mx-auto'>
@@ -179,3 +187,14 @@ const Expense = () => {
 }
 
 export default Expense
+
+const ExpenseSkeleton = () => {
+  return (
+    <div className='my-5 mx-auto'>
+      <div className='grid grid-cols-1 gap-6'>
+         <div className='bg-white p-6 rounded-2xl shadow-sm border border-slate-100/50 h-80 animate-pulse'></div>
+         <div className='bg-white p-6 rounded-2xl shadow-sm border border-slate-100/50 h-96 animate-pulse'></div>
+      </div>
+    </div>
+  )
+}
