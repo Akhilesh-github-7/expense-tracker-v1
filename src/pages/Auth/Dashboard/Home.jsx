@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import DashboardLayout from '../../../components/layouts/DashboardLayout'
 import { useUserAuth } from '../../../hooks/useUserAuth'
 import { useNavigate } from 'react-router-dom'
@@ -14,11 +14,13 @@ import ExpenseTransactions from '../../../components/Dashboard/ExpenseTransactio
 import Last30DaysExpenses from '../../../components/Dashboard/Last30DaysExpenses'
 import RecentIncomeWithChart from '../../../components/Dashboard/RecentIncomeWithChart'
 import RecentIncome from '../../../components/Dashboard/RecentIncome'
+import { UserContext } from '../../../context/UserContext'
 
 const Home = () => {
   useUserAuth()
 
   const navigate = useNavigate();
+  const { user } = useContext(UserContext);
 
   const [dashboardData, setDashboardData] = useState(null)
   const [loading,setLoading] = useState(false)
@@ -45,11 +47,24 @@ const Home = () => {
   
     return () => {};
   },[]);
+
+  if (loading) {
+    return (
+      <DashboardLayout activeMenu="Dashboard">
+         <DashboardSkeleton />
+      </DashboardLayout>
+    )
+  }
   
 
   return (
     <DashboardLayout activeMenu="Dashboard">
       <div className='my-5 mx-auto'>
+        <div className='mb-6'>
+          <h2 className='text-2xl font-bold text-slate-800'>Hello, {user?.fullName?.split(" ")[0] || "User"}! 👋</h2>
+          <p className='text-sm text-slate-500'>Here's an overview of your finances today.</p>
+        </div>
+
         <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
           <InfoCard
           icon={<IoMdCard/>}
@@ -110,3 +125,32 @@ const Home = () => {
 }
 
 export default Home
+
+const DashboardSkeleton = () => {
+  return (
+    <div className='my-5 mx-auto'>
+      <div className='mb-6'>
+         <div className='h-8 w-48 bg-slate-200 rounded animate-pulse mb-2'></div>
+         <div className='h-4 w-64 bg-slate-100 rounded animate-pulse'></div>
+      </div>
+
+      <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
+         {[1,2,3].map(i => (
+            <div key={i} className='bg-white p-6 rounded-2xl shadow-sm border border-slate-100/50 flex items-center gap-6'>
+               <div className='w-14 h-14 bg-slate-200 rounded-full animate-pulse'></div>
+               <div>
+                 <div className='h-4 w-24 bg-slate-200 rounded animate-pulse mb-2'></div>
+                 <div className='h-8 w-32 bg-slate-200 rounded animate-pulse'></div>
+               </div>
+            </div>
+         ))}
+      </div>
+
+      <div className='grid grid-cols-1 md:grid-cols-2 gap-6 mt-6'>
+         {[1,2,3,4,5,6].map(i => (
+             <div key={i} className='bg-white p-6 rounded-2xl shadow-sm border border-slate-100/50 h-64 animate-pulse'></div>
+         ))}
+      </div>
+    </div>
+  )
+}
