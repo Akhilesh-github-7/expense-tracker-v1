@@ -6,7 +6,7 @@ import axiosInstance from '../../../Utils/axiosInstance'
 import { API_PATHS } from '../../../Utils/apiPaths'
 import { IoMdCard } from 'react-icons/io'
 import InfoCard from '../../../components/Cards/InfoCard'
-import { LuHandCoins, LuPlus, LuRefreshCcw, LuWalletMinimal } from 'react-icons/lu'
+import { LuHandCoins, LuLayoutDashboard, LuPlus, LuRefreshCcw, LuWalletMinimal } from 'react-icons/lu'
 import { addThousandsSeparator } from '../../../Utils/helper'
 import RecentTransactions from '../../../components/Dashboard/RecentTransactions'
 import FinanceOverview from '../../../components/Dashboard/FinanceOverview'
@@ -55,6 +55,8 @@ const Home = () => {
       </DashboardLayout>
     )
   }
+
+  const hasData = dashboardData?.totalIncome > 0 || dashboardData?.totalExpense > 0;
   
 
   return (
@@ -79,12 +81,12 @@ const Home = () => {
         <div className='grid grid-cols-2 md:grid-cols-4 gap-4 mb-8'>
           <button 
             onClick={() => navigate("/income")}
-            className='flex items-center gap-3 p-4 bg-primary/5 border border-primary/10 rounded-2xl hover:bg-primary/10 transition-all group'
+            className='flex items-center gap-3 p-4 bg-primary/5 border border-primary/10 rounded-2xl hover:bg-primary/10 transition-all group text-left'
           >
             <div className='w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white shadow-lg shadow-primary/20'>
               <LuPlus size={20} />
             </div>
-            <div className='text-left'>
+            <div>
               <p className='text-xs font-bold text-primary uppercase tracking-wider'>Add</p>
               <p className='text-sm font-bold text-slate-800'>Income</p>
             </div>
@@ -92,12 +94,12 @@ const Home = () => {
 
           <button 
             onClick={() => navigate("/expense")}
-            className='flex items-center gap-3 p-4 bg-red-50 border border-red-100 rounded-2xl hover:bg-red-100/50 transition-all group'
+            className='flex items-center gap-3 p-4 bg-red-50 border border-red-100 rounded-2xl hover:bg-red-100/50 transition-all group text-left'
           >
             <div className='w-10 h-10 rounded-xl bg-red-500 flex items-center justify-center text-white shadow-lg shadow-red-200'>
               <LuPlus size={20} />
             </div>
-            <div className='text-left'>
+            <div>
               <p className='text-xs font-bold text-red-500 uppercase tracking-wider'>Add</p>
               <p className='text-sm font-bold text-slate-800'>Expense</p>
             </div>
@@ -124,47 +126,113 @@ const Home = () => {
           color="bg-red-500"/>
         </div>
 
-        <div className='mt-10'>
-          <h3 className='text-xl font-bold text-slate-800 mb-6 flex items-center gap-2'>
-            <div className='w-2 h-6 bg-primary rounded-full'></div>
-            Financial Analytics
-          </h3>
-          
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-            <FinanceOverview
-              totalBalance={dashboardData?.totalBalance || 0}
-              totalIncome={dashboardData?.totalIncome || 0}
-              totalExpense={dashboardData?.totalExpense || 0}
-            />
+        {hasData ? (
+          <div className='mt-10'>
+            <h3 className='text-xl font-bold text-slate-800 mb-6 flex items-center gap-2'>
+              <div className='w-2 h-6 bg-primary rounded-full'></div>
+              Financial Analytics
+            </h3>
+            
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+              <FinanceOverview
+                totalBalance={dashboardData?.totalBalance || 0}
+                totalIncome={dashboardData?.totalIncome || 0}
+                totalExpense={dashboardData?.totalExpense || 0}
+              />
 
-            <Last30DaysExpenses
-              data={dashboardData?.last30DaysExpenses?.transactions || []}
-            />
+              <Last30DaysExpenses
+                data={dashboardData?.last30DaysExpenses?.transactions || []}
+              />
 
-            <RecentIncomeWithChart
-              data={dashboardData?.last60DaysIncome?.transactions?.slice(0,4) || []}
-              totalIncome={dashboardData?.totalIncome || 0}
-            />
+              <RecentIncomeWithChart
+                data={dashboardData?.last60DaysIncome?.transactions?.slice(0,4) || []}
+                totalIncome={dashboardData?.totalIncome || 0}
+              />
 
-            <RecentTransactions
-              transactions={dashboardData?.recentTransactions}
-              onSeeMore={()=>navigate("/expense")}
-            />
+              <RecentTransactions
+                transactions={dashboardData?.recentTransactions}
+                onSeeMore={()=>navigate("/expense")}
+              />
 
-            <ExpenseTransactions
-              transactions={dashboardData?.last30DaysExpenses?.transactions || []}
-              onSeeMore={()=> navigate("/expense")}
-            />
+              <ExpenseTransactions
+                transactions={dashboardData?.last30DaysExpenses?.transactions || []}
+                onSeeMore={()=> navigate("/expense")}
+              />
 
-            <RecentIncome
-              transactions={dashboardData?.last60DaysIncome?.transactions || []}
-              onSeeMore={()=> navigate("/income")}
-            />
+              <RecentIncome
+                transactions={dashboardData?.last60DaysIncome?.transactions || []}
+                onSeeMore={()=> navigate("/income")}
+              />
+            </div>
           </div>
-        </div>
+        ) : (
+          <NoDataView />
+        )}
       </div>
 
     </DashboardLayout>
+  )
+}
+
+export default Home
+
+const NoDataView = () => {
+  const navigate = useNavigate();
+  return (
+    <div className='mt-12 flex flex-col items-center justify-center py-20 px-6 bg-white rounded-3xl border border-slate-100 shadow-sm'>
+       <div className='w-20 h-20 bg-slate-50 rounded-3xl flex items-center justify-center text-slate-300 mb-6'>
+          <LuLayoutDashboard size={40} />
+       </div>
+       <h3 className='text-2xl font-bold text-slate-800 text-center'>Ready to take control of your finances?</h3>
+       <p className='text-slate-500 text-center mt-2 max-w-md'>
+          Your dashboard is currently empty. Start by adding your first income or expense to see detailed analytics and trends.
+       </p>
+       
+       <div className='flex flex-wrap items-center justify-center gap-4 mt-10'>
+          <button 
+            onClick={() => navigate('/income')}
+            className='flex items-center gap-2 px-6 py-3 bg-primary text-white font-bold rounded-2xl shadow-lg shadow-primary/20 hover:bg-primary/90 transition-all'
+          >
+            <LuPlus size={20} /> Add Your First Income
+          </button>
+          
+          <button 
+            onClick={() => navigate('/expense')}
+            className='flex items-center gap-2 px-6 py-3 bg-slate-100 text-slate-700 font-bold rounded-2xl hover:bg-slate-200 transition-all'
+          >
+            <LuPlus size={20} /> Add Your First Expense
+          </button>
+       </div>
+    </div>
+  )
+}
+
+const DashboardSkeleton = () => {
+  return (
+    <div className='my-5 mx-auto'>
+      <div className='mb-6'>
+         <div className='h-8 w-48 bg-slate-200 rounded animate-pulse mb-2'></div>
+         <div className='h-4 w-64 bg-slate-100 rounded animate-pulse'></div>
+      </div>
+
+      <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
+         {[1,2,3].map(i => (
+            <div key={i} className='bg-white p-6 rounded-2xl shadow-sm border border-slate-100/50 flex items-center gap-6'>
+               <div className='w-14 h-14 bg-slate-200 rounded-full animate-pulse'></div>
+               <div>
+                 <div className='h-4 w-24 bg-slate-200 rounded animate-pulse mb-2'></div>
+                 <div className='h-8 w-32 bg-slate-200 rounded animate-pulse'></div>
+               </div>
+            </div>
+         ))}
+      </div>
+
+      <div className='grid grid-cols-1 md:grid-cols-2 gap-6 mt-6'>
+         {[1,2,3,4,5,6].map(i => (
+             <div key={i} className='bg-white p-6 rounded-2xl shadow-sm border border-slate-100/50 h-64 animate-pulse'></div>
+         ))}
+      </div>
+    </div>
   )
 }
 
