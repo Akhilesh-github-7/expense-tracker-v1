@@ -49,35 +49,51 @@ export const addThousandsSeparator = (num) =>{
     : formattedInteger;
 };
 
-export const prepareExpenseBarChartData = (data = [])=>{
-    const chartData = data.map((item)=>({
-        category: item?.category,
-        amount: item?.amount,
-    }))
+export const prepareExpenseBarChartData = (data = []) => {
+    // Aggregate by category
+    const aggregated = data.reduce((acc, item) => {
+        const category = item?.category || "Other";
+        acc[category] = (acc[category] || 0) + item.amount;
+        return acc;
+    }, {});
 
-    return chartData;
+    return Object.keys(aggregated).map((key) => ({
+        category: key,
+        amount: aggregated[key],
+    }));
 };
 
-export const prepareIncomeBarChartData = (data = [])=>{
-    const sortedData = [...data].sort((a,b)=> new Date(a.date)-new Date(b.date));
+export const prepareIncomeBarChartData = (data = []) => {
+    // Sort by date first
+    const sortedData = [...data].sort((a, b) => new Date(a.date) - new Date(b.date));
 
-    const chartData = sortedData.map((item)=>({
-        month:moment(item?.date).format('Do MMM'),
-        amount: item?.amount,
-        source: item?.source,
-    }))
-    return chartData;
+    // Aggregate by date (Daily Trend)
+    const aggregated = sortedData.reduce((acc, item) => {
+        const date = moment(item?.date).format('Do MMM');
+        acc[date] = (acc[date] || 0) + item.amount;
+        return acc;
+    }, {});
+
+    return Object.keys(aggregated).map((key) => ({
+        month: key,
+        amount: aggregated[key],
+    }));
 };
 
-export const prepareExpenseLineChartData = (data = [])=>{
-    const sortedData = [...data].sort((a,b) => new Date(a.date) - new Date(b.date));
+export const prepareExpenseLineChartData = (data = []) => {
+    // Sort by date first
+    const sortedData = [...data].sort((a, b) => new Date(a.date) - new Date(b.date));
 
-    const chartData = sortedData.map((item)=>({
-        month: moment(item?.date).format('Do MMM'),
-        amount: item?.amount,
-        category: item?.category,
-    }))
+    // Aggregate by date (Daily Trend)
+    const aggregated = sortedData.reduce((acc, item) => {
+        const date = moment(item?.date).format('Do MMM');
+        acc[date] = (acc[date] || 0) + item.amount;
+        return acc;
+    }, {});
 
-    return chartData;
+    return Object.keys(aggregated).map((key) => ({
+        month: key,
+        amount: aggregated[key],
+    }));
 };
 

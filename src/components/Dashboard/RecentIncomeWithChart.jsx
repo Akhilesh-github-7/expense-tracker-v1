@@ -8,9 +8,18 @@ const RecentIncomeWithChart = ({data,totalIncome}) => {
     const [chartData,setChartData] = useState([])
 
     const prepareChartData = () =>{
-        const dataArr = data?.map((item)=>({
-            name: item?.source,
-            amount: item?.amount
+        if (!data) return;
+
+        // Aggregate by source
+        const aggregated = data.reduce((acc, item) => {
+            const source = item?.source || "Other";
+            acc[source] = (acc[source] || 0) + item.amount;
+            return acc;
+        }, {});
+
+        const dataArr = Object.keys(aggregated).map((key)=>({
+            name: key,
+            amount: aggregated[key]
         }))
 
         setChartData(dataArr)
@@ -25,8 +34,8 @@ const RecentIncomeWithChart = ({data,totalIncome}) => {
     <div className='bg-white p-6 rounded-2xl shadow-sm border border-slate-100/50'>
         <div className='flex items-center justify-between mb-2'>
             <div>
-              <h5 className='text-lg font-bold text-slate-800'>Income Sources</h5>
-              <p className='text-xs text-slate-400 mt-0.5'>Last 60 days distribution</p>
+              <h5 className='text-lg font-bold text-slate-800'>Income Distribution</h5>
+              <p className='text-xs text-slate-400 mt-0.5'>Breakdown by source</p>
             </div>
         </div>
     

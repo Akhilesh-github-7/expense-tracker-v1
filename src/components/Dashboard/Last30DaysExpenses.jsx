@@ -21,7 +21,7 @@ const [chartData, setChartData] = useState([])
             </div>
         </div>
 
-       <CustomBarChart data={chartData}/>
+       <CustomBarChart data={chartData} xAxisKey='category'/>
     </div>
   )
 }

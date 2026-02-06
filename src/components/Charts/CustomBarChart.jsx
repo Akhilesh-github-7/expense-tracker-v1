@@ -3,7 +3,7 @@ import { Bar, BarChart, CartesianGrid, Cell, Legend, ResponsiveContainer, Toolti
 
 
 
-const CustomBarChart = ({data}) => {
+const CustomBarChart = ({data, xAxisKey = "month", dataKey = "amount"}) => {
 
     // function to alternate colors
     const getBarColor = (index)=>{
@@ -14,7 +14,9 @@ const CustomBarChart = ({data}) => {
      if (active && payload && payload.length){
         return (
             <div className='bg-white shadow-xl shadow-slate-200/50 rounded-xl p-3 border border-slate-100/50 backdrop-blur-sm'>
-                <p className='text-xs font-semibold text-slate-500 mb-1 '>{payload[0].payload.category || payload[0].payload.source}</p>
+                <p className='text-xs font-semibold text-slate-500 mb-1 '>
+                    {payload[0].payload[xAxisKey]}
+                </p>
                 <p className='text-base font-bold text-slate-900'>
                      ₹{payload[0].value.toLocaleString('en-IN')}
                 </p>
@@ -31,7 +33,7 @@ const CustomBarChart = ({data}) => {
             <BarChart data={data} margin={{ top: 10, right: 0, left: -20, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke='#e2e8f0' vertical={false}/>
                 <XAxis 
-                    dataKey="month" 
+                    dataKey={xAxisKey} 
                     tick={{ fontSize:12, fill:"#64748b", fontWeight: 500 }} 
                     stroke='none'
                     axisLine={false}
@@ -47,7 +49,7 @@ const CustomBarChart = ({data}) => {
                 <Tooltip content={CustomTooltip} cursor={{ fill: '#f8fafc' }}/>
 
                 <Bar 
-                    dataKey="amount"
+                    dataKey={dataKey}
                     fill='#FF8042'
                     radius={[6, 6 , 0, 0]}
                     barSize={32}

@@ -7,11 +7,11 @@ const CustomLineChart = ({ data }) => {
         if (active && payload && payload.length){
             return(
                 <div className='bg-white shadow-xl shadow-slate-200/50 rounded-xl p-3 border border-slate-100/50 backdrop-blur-sm'>
-                    <p className='text-xs font-semibold text-slate-500 mb-1'>{payload[0].payload.month}</p>
+                    <p className='text-xs font-semibold text-slate-500 mb-1'>Daily Expense</p>
                     <p className='text-base font-bold text-slate-900'>
-                        ₹{payload[0].payload.amount.toLocaleString('en-IN')}
+                        ₹{payload[0].value.toLocaleString('en-IN')}
                     </p>
-
+                    <p className='text-[10px] text-slate-400 mt-1'>{payload[0].payload.month}</p>
                 </div>
             );
         }
