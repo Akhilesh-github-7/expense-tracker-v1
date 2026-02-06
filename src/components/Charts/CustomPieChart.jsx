@@ -18,7 +18,6 @@ const CustomPieChart = ({data, label, totalAmount, colors, showTextAnchor}) => {
     paddingAngle={2}
     cornerRadius={4}
     stroke="none"
-    dataKey="amount"
     >
         {data.map((entry , index)=>(
             <Cell key={`cell-${index}`} fill={colors[index %  colors.length]}/>

@@ -1,5 +1,7 @@
 import React from 'react'
 import { LuTrash2, LuTrendingDown, LuTrendingUp, LuUtensils } from 'react-icons/lu'
+import { getProfileImageUrl } from '../../Utils/helper'
+
 const TransactionInfoCard = ({title, icon, date, amount, type, hideDeleteBtn, onDelete}) => {
 
     const getAmountStyles = ()=> 
@@ -9,7 +11,7 @@ const TransactionInfoCard = ({title, icon, date, amount, type, hideDeleteBtn, on
     <div className='group relative flex items-center gap-4 mt-3 p-3 rounded-2xl border border-slate-100 hover:border-slate-200 hover:bg-slate-50/50 transition-all duration-300'>
         <div className='w-12 h-12 flex items-center justify-center text-xl text-slate-600 bg-slate-100 rounded-xl'>
             {icon ? (
-                <img src={icon} alt={title} className='w-6 h-6' />
+                <img src={getProfileImageUrl(icon)} alt={title} className='w-6 h-6' />
             ) : (
                 <LuUtensils/>
             )
