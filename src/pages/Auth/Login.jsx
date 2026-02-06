@@ -6,12 +6,13 @@ import { validateEmail } from "../../Utils/helper";
 import axiosInstance from "../../Utils/axiosInstance";
 import { API_PATHS } from "../../Utils/apiPaths";
 import { UserContext } from "../../context/UserContext";
+import toast from "react-hot-toast";
 
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { updateUser} = useContext(UserContext)
 
@@ -22,15 +23,16 @@ const Login = () => {
     e.preventDefault()
 
     if (!validateEmail(email)){
-      setError("Please enter a valid email address")
+      toast.error("Please enter a valid email address")
       return
     }
 
     if (!password){
-      setError("Please enter the password")
+      toast.error("Please enter the password")
       return
     }
-    setError("")
+
+    setIsLoading(true)
 
     //Login API Call
     try{
@@ -42,34 +44,60 @@ const Login = () => {
       if(token){
         localStorage.setItem("token",token)
         updateUser(user)
+        toast.success("Login Successful!")
         navigate("/dashboard")
       }
     }catch(error){
       if(error.response && error.response.data.message){
-        setError(error.response.data.message)
+        toast.error(error.response.data.message)
       }else{
-        setError("Something went wrong. Please try again.")
+        toast.error("Something went wrong. Please try again.")
       }
+    } finally {
+      setIsLoading(false)
     }
   }
 
   return (
     <AuthLayout>
       <div className="lg:w-[70%] h-3/4 md:h-full flex flex-col justify-center">
-        <h3 className="text-xl font-semibold text-black">Welcome Back</h3>
-        <p className="text-xs text-slate-700 mt-[5px] mb-6">
-          Please enter your details to login
+        <h3 className="text-2xl font-bold text-black mb-1">Welcome Back</h3>
+        <p className="text-sm text-slate-500 mb-8">
+          Please enter your credentials to access your account.
         </p>
 
-        <form onSubmit={handleLogin}>
-          <Input value={email} onChange={({ target })=> setEmail(target.value)} label="Email Address" placeholder="max@example.com" type="text" />
+        <form onSubmit={handleLogin} className="space-y-4">
+          <Input 
+            value={email} 
+            onChange={({ target })=> setEmail(target.value)} 
+            label="Email Address" 
+            placeholder="max@example.com" 
+            type="text" 
+          />
 
-          <Input value={password} onChange={({ target })=> setPassword(target.value)} label="Password" placeholder="password must contain minimum 8 charaters" type="password" />
+          <Input 
+            value={password} 
+            onChange={({ target })=> setPassword(target.value)} 
+            label="Password" 
+            placeholder="Enter your password" 
+            type="password" 
+          />
 
-          {error && <p className="text-red-500 text-xs pb-2.5">{error}</p>}
-          <button type="submit" className="btn-primary">LOGIN</button>
-          <p className="">Don't have a account?{" "}
-            <Link className="font-medium text-primary underline" to="/signup">SignUp</Link>
+          <div className="pt-2">
+            <button 
+              type="submit" 
+              className={`btn-primary w-full flex items-center justify-center transition-all ${isLoading ? 'opacity-70 cursor-not-allowed' : ''}`}
+              disabled={isLoading}
+            >
+              {isLoading ? "LOGGING IN..." : "LOGIN"}
+            </button>
+          </div>
+          
+          <p className="text-[13px] text-slate-600 text-center mt-4">
+            Don't have an account?{" "}
+            <Link className="font-semibold text-primary hover:underline transition-all" to="/signup">
+              Create an account
+            </Link>
           </p>
         </form>
       </div>

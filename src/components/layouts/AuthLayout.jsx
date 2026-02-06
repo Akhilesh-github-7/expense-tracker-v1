@@ -1,34 +1,47 @@
 import React from 'react'
-import {LuTrendingUpDown} from "react-icons/lu"
+import { LuTrendingUpDown } from "react-icons/lu"
 import card1 from "../../assets/images/card1.gif"
 
 const AuthLayout = ({ children }) => {
   return (
-    <div className='flex'>
-        <div className='w-screen h-screen md:w-[60vw] px-12 pt-8 pb-12'>
-            <h2 className='text-3xl font-extrabold text-black'>Expense Tracker</h2>
-            {children}
-        </div>
-        <div className='hidden md:block w-[80vw] h-screen bg-black bg-auth-bg-img bg-cover bg-no-repea bg-center overflow-hidden p-8 relative'>
-            {/* <div className='w-48 h-48 rounded-[40px] bg-purple-600 absolute -top-7 -left-5 '/>
-            <div className='w-48 h-100 rounded-[40px] border-[20px] border-fuchsia-600 absolute top-[30%] -right-10'/>
-            <div className='w-48 h-48 rounded-[40px] bg-violet-500 
-            absolute -bottom-7 -left-5'/> */}
+    <div className='flex min-h-screen bg-white'>
+        <div className='w-full md:w-[60vw] px-8 md:px-16 lg:px-24 py-12 flex flex-col'>
+            <div className='flex items-center gap-2 mb-10'>
+              <div className='bg-primary w-10 h-10 rounded-lg flex items-center justify-center text-white shadow-lg shadow-primary/20'>
+                <LuTrendingUpDown size={24} />
+              </div>
+              <h2 className='text-2xl font-bold text-slate-900 tracking-tight'>Expensy</h2>
+            </div>
             
+            <div className='flex-1 flex flex-col justify-center max-w-md mx-auto w-full'>
+              {children}
+            </div>
 
-            <div className='grid grid-cols-1 z-20'>
+            <p className='text-slate-400 text-xs mt-10'>
+              &copy; {new Date().getFullYear()} Expensy. All rights reserved.
+            </p>
+        </div>
+
+        <div className='hidden md:flex w-[40vw] bg-slate-50 border-l border-slate-100 p-12 relative overflow-hidden flex-col justify-between'>
+            <div className='relative z-10'>
                 <StatsInfoCard
-                icon={<LuTrendingUpDown/>}
-                label="Track Your Income & Expenses"
-                value="430,000"
-                color="bg-primary"
+                  icon={<LuTrendingUpDown/>}
+                  label="Track Your Income & Expenses"
+                  value="4,30,000"
+                  color="bg-primary"
                 />
             </div>
 
-
-
-            <img className='w-64 lg:w-[90%] absolute bottom-10 shadow-lg shadow-blue-400/15' src={card1} alt="" />
-            
+            <div className='relative mt-auto'>
+              <div className='absolute -top-20 -right-20 w-64 h-64 bg-primary/5 rounded-full blur-3xl' />
+              <div className='absolute -bottom-20 -left-20 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl' />
+              
+              <img 
+                className='relative w-full rounded-2xl shadow-2xl shadow-slate-200 border border-white' 
+                src={card1} 
+                alt="Dashboard Preview" 
+              />
+            </div>
         </div>
     </div>
   )
@@ -37,14 +50,15 @@ const AuthLayout = ({ children }) => {
 export default AuthLayout
 
 const StatsInfoCard = ({icon, label , value ,color})=>{
-    return <div className='flex gap-6 bg-white p-4 rounded-xl shadow-md shadow-purple-400/10 border border-gray-200/50 z-10'>
-        <div className={`w-12 h-12 flex items-center justify-center text-[26px] text-white ${color} rounded-full drop-shadow-axl`}>
-        {icon}
-    </div>
-    <div>
-        <h6 className='text-xs text-gray-500 mb-1'>{label}</h6>
-        <span className='text-[20px]'>₹{value}</span>
+    return (
+      <div className='flex items-center gap-4 bg-white p-5 rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-100 w-fit'>
+        <div className={`w-12 h-12 flex items-center justify-center text-2xl text-white ${color} rounded-xl shadow-lg shadow-primary/30`}>
+          {icon}
         </div>
+        <div>
+          <h6 className='text-xs font-medium text-slate-500 mb-0.5'>{label}</h6>
+          <span className='text-xl font-bold text-slate-900'>₹{value}</span>
         </div>
-
+      </div>
+    )
 }
