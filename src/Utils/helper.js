@@ -1,4 +1,5 @@
 import moment from "moment";
+import { BASE_URL } from "./apiPaths";
 
 export const validateEmail = (email)=>{
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -17,7 +18,24 @@ export const getInitials = (name) =>{
     return initials.toUpperCase()
 };
 
+export const getProfileImageUrl = (imagePath) => {
+    if (!imagePath) return null;
 
+    // If it's a blob URL (preview), return it as is
+    if (imagePath.startsWith("blob:")) return imagePath;
+
+    // If it's a full URL
+    if (imagePath.startsWith("http")) {
+        // If it's a legacy localhost URL from the DB, replace it with the current BASE_URL
+        if (imagePath.includes("http://localhost:8000")) {
+            return imagePath.replace("http://localhost:8000", BASE_URL);
+        }
+        return imagePath;
+    }
+
+    // If it's a relative path, prepend BASE_URL
+    return `${BASE_URL}/${imagePath}`;
+};
 
 export const addThousandsSeparator = (num) =>{
     if(num == null || isNaN(num)) return "";

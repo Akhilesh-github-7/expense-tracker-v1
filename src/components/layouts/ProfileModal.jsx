@@ -7,6 +7,7 @@ import uploadImage from '../../Utils/uploadImage'
 import axiosInstance from '../../Utils/axiosInstance'
 import { API_PATHS } from '../../Utils/apiPaths'
 import toast from 'react-hot-toast'
+import { getProfileImageUrl } from '../../Utils/helper'
 
 const ProfileModal = ({ isOpen, onClose }) => {
     const { user, updateUser } = useContext(UserContext)
@@ -60,7 +61,7 @@ const ProfileModal = ({ isOpen, onClose }) => {
         <Modal isOpen={isOpen} onClose={onClose} title="Update Profile">
             <div className='space-y-6'>
                 <ProfilePhotoSelector 
-                    image={profilePic === "REMOVE" ? null : (profilePic || user?.profileImageUrl)} 
+                    image={profilePic === "REMOVE" ? null : (profilePic || getProfileImageUrl(user?.profileImageUrl))} 
                     setImage={(val) => setProfilePic(val === null ? "REMOVE" : val)} 
                 />
 
