@@ -21,7 +21,6 @@ export const useUserAuth = ()=>{
                     updateUser(response.data)
                 }
             }catch(error){
-                console.log("Failed to fetch user info",error);
 
                 if(isMounted){
                     clearUser()

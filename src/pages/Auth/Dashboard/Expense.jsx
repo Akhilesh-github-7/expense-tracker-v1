@@ -15,9 +15,6 @@ const Expense = () => {
 
 
    const [expenseData, setExpenseData] = useState([]);
-
-   console.log(expenseData);
-   
   
     const [loading, setLoading] = useState(false);
   
@@ -41,14 +38,12 @@ const Expense = () => {
       const response = await axiosInstance.get(`${API_PATHS.EXPENSE.GET_ALL_EXPENSE}`);
 
       if(response.data){
-        console.log(response);
 
         
         setExpenseData(response.data);
 
       }
     }catch(error){
-      console.log("Something Went Wrong.Please try again",error);
       
     }finally{
       setLoading(false);

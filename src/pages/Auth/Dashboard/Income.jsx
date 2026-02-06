@@ -35,12 +35,10 @@ const Income = () => {
       const response = await axiosInstance.get(`${API_PATHS.INCOME.GET_ALL_INCOME}`);
 
       if(response.data){
-        console.log(response);
         setIncomeData(response.data);
 
       }
     }catch(error){
-      console.log("Something Went Wrong.Please try again",error);
       
     }finally{
       setLoading(false);

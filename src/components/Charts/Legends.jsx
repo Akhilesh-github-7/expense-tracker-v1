@@ -2,7 +2,6 @@ import React from 'react'
 
 const Legends = ({payload = []}) => {
 
-  console.log("Legend Payload:", payload);  // ✅ Debugging line
 
   if (!payload || payload.length === 0) return null;
   
