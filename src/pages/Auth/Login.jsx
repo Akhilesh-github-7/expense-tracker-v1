@@ -83,6 +83,12 @@ const Login = () => {
             type="password" 
           />
 
+          <div className="flex justify-end">
+            <Link to="#" className="text-xs font-medium text-primary hover:underline hover:text-primary/80 transition-all">
+              Forgot Password?
+            </Link>
+          </div>
+
           <div className="pt-2">
             <button 
               type="submit" 
